@@ -62,11 +62,7 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git config --global user.email \"Vinicius-rivaldar@outlook.com\""
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = " git config --global user.name \"ViniRivaldar\""
+args = "git remote set-url origin https://@github.com/ViniRivaldar/miniblog.git"
 
 [[ports]]
 localPort = 3000
