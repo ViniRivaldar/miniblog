@@ -1,5 +1,7 @@
 import express  from "express";
 
+import './database/index.js';
+
 class App{
   constructor(){
     this.app = express();
