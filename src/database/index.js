@@ -1,7 +1,9 @@
+
 import Sequelize from "sequelize";
 import configDatabase from '../config/database.js'
+import { EventEmitter } from 'events'
 
-import app from "../app.js";
+const emitter = new EventEmitter()
 
 class Database {
   constructor() {
@@ -9,9 +11,10 @@ class Database {
   }
 
   init() {
-      app.emit('pronto')
       this.connection = new Sequelize(configDatabase)
+      emitter.emit('database_ready')
     }
 }  
 
+export { emitter }
 export default new Database();
