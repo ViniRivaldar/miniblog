@@ -25,6 +25,49 @@ mode = "sequential"
 task = "shell.exec"
 args = "npm run dev"
 
+[[workflows.workflow]]
+name = "commitar"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "git  init"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "git add ."
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "git commit -m \"Primeiro commit\""
+
+[[workflows.workflow]]
+name = "dar um push"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "git remote add origin https://github.com/ViniRivaldar/miniblog.git"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "git push -u origin main"
+
+[[workflows.workflow]]
+name = "configuração global"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "git config --global user.email \"Vinicius-rivaldar@outlook.com\""
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = " git config --global user.name \"ViniRivaldar\""
+
 [[ports]]
 localPort = 3000
 externalPort = 80
