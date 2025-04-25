@@ -1,9 +1,6 @@
 
 import Sequelize from "sequelize";
 import configDatabase from '../config/database.js'
-import { EventEmitter } from 'events'
-
-const emitter = new EventEmitter()
 
 class Database {
   constructor() {
@@ -12,9 +9,16 @@ class Database {
 
   init() {
       this.connection = new Sequelize(configDatabase)
-      emitter.emit('database_ready')
     }
+    this.connection.authenticate()
+    
+    .then(() =>{
+        console.log("Conexão com o banco de dados estabelecida com sucesso!");
+    }
+    .catch((err) => {
+        console.error("Erro ao conectar ao banco de dados:", err);
+    })
 }  
 
-export { emitter }
+
 export default new Database();
