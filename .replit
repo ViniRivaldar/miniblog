@@ -14,6 +14,7 @@ deploymentTarget = "autoscale"
 ignorePorts = false
 
 [workflows]
+runButton = "dar um push"
 
 [[workflows.workflow]]
 name = "Run"
@@ -39,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m \"Primeiro commit\""
+args = "git commit -m 'modified:   .replit'"
 
 [[workflows.workflow]]
 name = "dar um push"
@@ -48,11 +49,11 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git remote add origin https://github.com/ViniRivaldar/miniblog.git"
+args = "git remote remove origin"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git push -u origin main"
+args = "git remote add origin https://github.com/ViniRivaldar/miniblog.git"
 
 [[workflows.workflow]]
 name = "git"
