@@ -1,5 +1,7 @@
 import express  from "express";
 
+import LoginRoutes from './app/routes/Login.js';
+
 import './database/index.js';
 
 class App{
@@ -9,9 +11,13 @@ class App{
     this.routes();
   }
 
-  middlewares(){}
+  middlewares(){
+    this.app.use(express.json());
+  }
 
-  routes(){}
+  routes(){
+    this.app.use('/login', LoginRoutes);
+  }
 }
 
 export default new App().app
