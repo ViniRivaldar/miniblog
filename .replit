@@ -90,6 +90,33 @@ author = 41891975
 task = "shell.exec"
 args = "npx sequelize-cli db:migrate"
 
+[[workflows.workflow]]
+name = "instalar pacotes"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm install bcrypt"
+
+[[workflows.workflow]]
+name = "adicionar coluna"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx sequelize-cli migration:generate --name add-admin-to-users"
+
+[[workflows.workflow]]
+name = "corrigir tabela"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx sequelize-cli migration:generate --name fix-users-table"
+
 [[ports]]
 localPort = 3000
-externalPort = 80
+externalPort = 3000

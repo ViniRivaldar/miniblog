@@ -26,6 +26,11 @@ class User extends Model{
       password:{
         type: Sequelize.STRING,
         allowNull: false,
+      },
+      admin:{
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
       }
     }, {
       sequelize

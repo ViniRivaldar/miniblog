@@ -4,6 +4,6 @@ import {Router} from 'express';
 
 const routes = new Router();
 
-routes.get('/', RegisterController.store)
+routes.post('/', RegisterController.store)
 
 export default  routes
