@@ -14,7 +14,7 @@ deploymentTarget = "autoscale"
 ignorePorts = false
 
 [workflows]
-runButton = "dar um push"
+runButton = "Run"
 
 [[workflows.workflow]]
 name = "Run"
@@ -40,20 +40,11 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'modified:   .replit'"
-
-[[workflows.workflow]]
-name = "dar um push"
-mode = "sequential"
-author = 41891975
+args = "git commit -m 'criando tabela User'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git remote remove origin"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "git remote add origin https://github.com/ViniRivaldar/miniblog.git"
+args = "git push -u origin main"
 
 [[workflows.workflow]]
 name = "git"
@@ -71,6 +62,33 @@ args = "git config user.email \"vinicius-rivaldar@outlook.com\""
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "git config --list"
+
+[[workflows.workflow]]
+name = "criação de migration"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx sequelize-cli migration:generate --name create-users"
+
+[[workflows.workflow]]
+name = "derrubar migration"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx sequelize-cli db:migrate:undo"
+
+[[workflows.workflow]]
+name = "subir migration"
+mode = "sequential"
+author = 41891975
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npx sequelize-cli db:migrate"
 
 [[ports]]
 localPort = 3000
