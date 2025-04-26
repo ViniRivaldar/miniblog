@@ -40,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'criando tabela User'"
+args = "git commit -m 'update e delete de usuario'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
