@@ -1,6 +1,7 @@
 import Sequelize from "sequelize";
 import configDatabase from '../config/database.js'
 import User from '../app/models/User.js';
+import Post from '../app/models/Post.js';
 
 class Database {
   constructor() {
@@ -20,6 +21,7 @@ class Database {
 
   initModels(){
     User.init(this.connection);
+    Post.init(this.connection);
   }
 }
 

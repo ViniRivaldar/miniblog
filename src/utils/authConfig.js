@@ -6,7 +6,8 @@ function authConfig(user){
   const payload = {
     id: user.id,
     username: user.username,
-    email: user.email
+    email: user.email,
+    userAdmin: user.admin 
         
   };
 

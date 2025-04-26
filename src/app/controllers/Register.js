@@ -14,7 +14,7 @@ class RegisterController {
     try {
       await schema.validate(req.body, { abortEarly: false });
 
-      const { name, username, email, password } = req.body;
+      const { name, username, email, password, admin } = req.body;
 
       const [userExists, emailExists] = await Promise.all([
         User.findOne({ where: { username } }),
@@ -36,7 +36,7 @@ class RegisterController {
         username,
         email,
         password: hashedPassword,
-        admin: false,
+        admin: admin || false,
       });
 
       return res.status(201).json({
@@ -83,7 +83,7 @@ class RegisterController {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
 
-      const {name, username, email, password} = req.body;
+      const {name, username, email, password, admin} = req.body;
 
       if (password) {
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -101,6 +101,8 @@ class RegisterController {
         username: username || user.username,
         email: email || user.email,
         password: user.password,
+        admin: admin || user.admin
+
       })
 
       return res.status(200).json({
@@ -110,7 +112,7 @@ class RegisterController {
           name: user.name,
           username: user.username,
           email: user.email,
-          phone_number: user.phone_number,
+          admin: user.admin
         },
       });
       

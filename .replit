@@ -40,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'update e delete de usuario'"
+args = "git commit -m 'criando funcionalidade de criar post'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
@@ -70,7 +70,7 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx sequelize-cli migration:generate --name create-users"
+args = "npx sequelize-cli migration:generate --name create-posts"
 
 [[workflows.workflow]]
 name = "derrubar migration"

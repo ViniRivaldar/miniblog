@@ -35,6 +35,7 @@ class LoginController {
         userId: user.id,
         userName: user.name,
         userEmail: user.email,
+        userAdmin: user.admin
       })
     }catch(err){
       if (err instanceof Yup.ValidationError){
