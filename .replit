@@ -97,7 +97,7 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm install bcrypt"
+args = "npm install jsonwebtoken"
 
 [[workflows.workflow]]
 name = "adicionar coluna"
