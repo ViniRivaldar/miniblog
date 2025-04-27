@@ -9,7 +9,7 @@ const storage = new CloudinaryStorage({
 
     if (req.baseUrl.includes("fotouser")) {
       folderName = "mini-blog/foto-de-perfil"; 
-    } else if (req.baseUrl.includes("foto_post")) {
+    } else if (req.baseUrl.includes("fotopost")) {
       folderName = "mini-blog/foto-de-post"; 
     } else {
       folderName = "mini-blog"; 

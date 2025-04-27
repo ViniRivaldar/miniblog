@@ -4,6 +4,7 @@ import User from '../app/models/User.js';
 import Post from '../app/models/Post.js';
 import Comment from '../app/models/Comment.js';
 import FotoUser from "../app/models/FotoUser.js";
+import FotoPost from "../app/models/FotoPost.js"
 
 class Database {
   constructor() {
@@ -26,6 +27,7 @@ class Database {
     Post.init(this.connection);
     Comment.init(this.connection)
     FotoUser.init(this.connection)
+    FotoPost.init(this.connection)
   }
 }
 

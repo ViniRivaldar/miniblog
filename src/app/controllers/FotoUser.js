@@ -31,7 +31,7 @@ class FotoUserController {
         return res.status(403).json({ error: "Você não tem permissão para excluir essa foto!" });
       }
 
-      const publicId = foto.filename; // Agora pega o caminho completo!!
+      const publicId = foto.filename; 
 
       const cloudinaryResult = await Cloudinary.uploader.destroy(publicId);
 
