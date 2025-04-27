@@ -7,17 +7,17 @@ const storage = new CloudinaryStorage({
   params: async (req, file) => {
     let folderName;
 
-    if (req.baseUrl.includes("foto_user")) {
-      folderName = "mini blog/foto de perfil";
+    if (req.baseUrl.includes("fotouser")) {
+      folderName = "mini-blog/foto-de-perfil"; 
     } else if (req.baseUrl.includes("foto_post")) {
-      folderName = "mini blog/foto de post";
+      folderName = "mini-blog/foto-de-post"; 
     } else {
-      folderName = "mini blog";
+      folderName = "mini-blog"; 
     }
 
     return {
       folder: folderName,
-      allowed_formats: ["jpg", "jpeg", "png"], 
+      allowed_formats: ["jpg", "jpeg", "png"],
     };
   },
 });
