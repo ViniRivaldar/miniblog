@@ -70,7 +70,7 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npx sequelize-cli migration:generate --name create-posts"
+args = "npx sequelize-cli migration:generate --name create-fotopost"
 
 [[workflows.workflow]]
 name = "derrubar migration"
