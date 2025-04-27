@@ -4,6 +4,7 @@ import LoginRoutes from './app/routes/Login.js';
 import RegisterRoutes from './app/routes/Register.js';
 import PostRoutes from './app/routes/Post.js';
 import CommentRoutes from './app/routes/Comment.js';
+import FotoUserRoutes from './app/routes/FotoUser.js'
 
 import './database/index.js';
 
@@ -23,6 +24,7 @@ class App{
     this.app.use('/register', RegisterRoutes)
     this.app.use('/posts', PostRoutes);
     this.app.use('/comments', CommentRoutes)
+    this.app.use('/fotouser', FotoUserRoutes)
   }
 }
 

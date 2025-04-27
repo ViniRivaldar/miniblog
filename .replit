@@ -40,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'criando tabela de foto de usuarios'"
+args = "git commit -m 'montando rota e controler'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
@@ -97,7 +97,7 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm install jsonwebtoken"
+args = "npm install cloudinary multer multer-storage-cloudinary"
 
 [[workflows.workflow]]
 name = "adicionar coluna"
