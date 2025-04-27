@@ -35,9 +35,10 @@ class FotoUser extends Model{
         get() {
           const filename = this.getDataValue('filename');
           if (!filename) return null;
-          return `https://res.cloudinary.com/dij2lqiy7/image/upload/mini%20blog/foto%20de%20perfil/${filename}`;
+          return `https://res.cloudinary.com/dij2lqiy7/image/upload/${filename}`;
         }
       }
+
     },{sequelize, tableName: 'foto_user'})
   }
 
