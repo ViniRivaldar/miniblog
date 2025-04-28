@@ -133,27 +133,26 @@ class RegisterController {
       })
     }
   }
-  async delete(req, res){
-    
-    const {id}= req.params;
-    const user = await User.findByPk(id)
+  async delete(req, res) {
+    const { id } = req.params;
 
-    try{
-      if(!id || id !== req.userId){
+    try {
+      if (!id || id !== req.userId) {
         return res.status(403).json({ message: 'Acesso negado' });
       }
 
-      if(!user){
+      const user = await User.findByPk(id);
+
+      if (!user) {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
 
       await user.destroy();
 
-      return res.status(200).json({ message: 'Usuário deletado com sucesso' })
-    }catch(err){
-      console.error('Registration error:', err);
-
-      return res.status(500).json({'mensagem': 'erro ao deletar usuário',})
+      return res.status(200).json({ message: 'Usuário deletado com sucesso' });
+    } catch (err) {
+      console.error('Erro durante exclusão do usuário:', err);
+      return res.status(500).json({ mensagem: 'Erro ao deletar usuário' });
     }
   }
 }

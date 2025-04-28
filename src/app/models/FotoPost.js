@@ -1,46 +1,83 @@
-import FotoPost from '../models/FotoPost.js';
+import Sequelize, { Model } from 'sequelize';
 import Cloudinary from "../../utils/services/cloudinaryConfig.js";
 
-class FotoPostController {
-  async store(req, res) {
-    try {
-      if (!req.userAdmin) {
-        if (req.file && req.file.filename) {
-          await Cloudinary.uploader.destroy(req.file.filename);
+class FotoPost extends Model {
+  static init(sequelize) {
+    super.init({
+      id: {
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
+        primaryKey: true,
+        allowNull: false,
+      },
+      originalmente:{
+        type:Sequelize.STRING,
+        defaultValue: '',
+        validate:{
+          notEmpty:{
+            msg: 'o campo não ser vazio'
+          }        
         }
-        return res.status(403).json({ error: 'Apenas administradores podem adicionar fotos' });
-      }
-
-      const { originalname, filename } = req.file;
-      const { post_id } = req.body;
-
-      if (!post_id) {
-        await Cloudinary.uploader.destroy(filename);
-        return res.status(400).json({ error: 'O ID do post é obrigatório' });
-      }
-
-      const foto = await FotoPost.create({
-        originalmente: originalname,
-        filename: filename,
-        post_id: post_id, 
-      });
-
-      return res.json(foto);
-    } catch (error) {
-      console.error(error);
-
-      if (req.file && req.file.filename) {
-        try {
-          await Cloudinary.uploader.destroy(req.file.filename);
-          console.log('Imagem removida do Cloudinary após erro no banco');
-        } catch (cloudinaryError) {
-          console.error('Erro ao remover imagem do Cloudinary:', cloudinaryError);
+      },
+      filename:{
+        type:Sequelize.STRING,
+        defaultValue: '',
+        validate:{
+          notEmpty:{
+            msg: 'o campo não ser vazio'
+          }
         }
-      }
+      },
+      post_id: {
+        type: Sequelize.UUID,
+        allowNull: false,
+        references: {
+          model: 'posts',
+          key: 'id',
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE',
+      },
+      url: {
+        type: Sequelize.VIRTUAL,
+        get() {
+          const filename = this.getDataValue('filename');
+          if (!filename) return null;
+          return `https://res.cloudinary.com/dij2lqiy7/image/upload/${filename}`;
+        }
+      },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('NOW()'),
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('NOW()'),
+      },
+    }, {
+      sequelize,
+      tableName: 'foto_post',
+    });
 
-      return res.status(500).json({ error: "Erro ao salvar a foto no banco" });
-    }
+
+    this.addHook('beforeDestroy', async (foto) => {
+      try {
+
+        if (foto.filename) {
+          const cloudinaryResult = await Cloudinary.uploader.destroy(foto.filename);
+          console.log(`Foto excluída do Cloudinary: ${cloudinaryResult}`);
+        }
+      } catch (error) {
+        console.error("Erro ao excluir foto do Cloudinary:", error);
+      }
+    });
+  }
+
+  static associate(models) {
+    this.belongsTo(models.Post, { foreignKey: 'post_id', as: 'post' });
   }
 }
 
-export default new FotoPostController();
+export default FotoPost;
