@@ -40,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'modificando o metodo delite do register: excluindo do fotos do cloudinary'"
+args = "git commit -m 'adicionando cors'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
@@ -97,7 +97,7 @@ author = 41891975
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "npm install cloudinary multer multer-storage-cloudinary"
+args = "npm install cors"
 
 [[workflows.workflow]]
 name = "adicionar coluna"
