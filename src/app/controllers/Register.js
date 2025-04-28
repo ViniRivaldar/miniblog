@@ -1,6 +1,10 @@
 import * as Yup from 'yup';
 import bcrypt from 'bcrypt';
 import User from '../models/User.js';
+import FotoUser from '../models/FotoUser.js';
+import FotoPost from '../models/FotoPost.js';
+import Post from '../models/Post.js';
+import Cloudinary from '../../utils/services/cloudinaryConfig.js';
 
 class RegisterController {
   async store(req, res) {
@@ -147,9 +151,47 @@ class RegisterController {
         return res.status(404).json({ message: 'Usuário não encontrado' });
       }
 
+     // 1. Buscar todas as fotos de perfil do usuário
+      const fotosPerfil = await FotoUser.findAll({ where: { user_id: id } });
+
+      // 2. Buscar todos os posts do usuário
+      const posts = await Post.findAll({ where: { user_id: id } });
+
+      // 3. Buscar todas as fotos dos posts
+      const postIds = posts.map(post => post.id);
+      const fotosPosts = await FotoPost.findAll({ where: { post_id: postIds } });
+
+      const promises = [];
+
+      // 4. Deletar fotos de perfil no Cloudinary
+      for (const foto of fotosPerfil) {
+        if (foto.filename) {
+          promises.push(Cloudinary.uploader.destroy(foto.filename));
+        }
+      }
+
+      // 5. Deletar fotos dos posts no Cloudinary
+      for (const foto of fotosPosts) {
+        if (foto.filename) {
+          promises.push(Cloudinary.uploader.destroy(foto.filename));
+        }
+      }
+
+      // Esperar apagar todas as imagens
+      await Promise.all(promises);
+
+      // 6. Deletar registros de fotos no banco (opcional, dependendo dos seus relacionamentos)
+      await FotoUser.destroy({ where: { user_id: id } });
+      await FotoPost.destroy({ where: { post_id: postIds } });
+
+      // 7. Deletar posts do usuário
+      await Post.destroy({ where: { user_id: id } });
+
+      // 8. Deletar usuário
       await user.destroy();
 
       return res.status(200).json({ message: 'Usuário deletado com sucesso' });
+
     } catch (err) {
       console.error('Erro durante exclusão do usuário:', err);
       return res.status(500).json({ mensagem: 'Erro ao deletar usuário' });
