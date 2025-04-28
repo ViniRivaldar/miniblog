@@ -40,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'corrigindo erros'"
+args = "git commit -m 'modificando o metodo index e o show do post controller'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"

@@ -2,13 +2,31 @@ import * as Yup from 'yup';
 import Post from '../models/Post.js';
 import User from '../models/User.js';
 import FotoPost from '../models/FotoPost.js';
+import Comment from '../models/Comment.js'
 
 class PostController{
   async index(req, res) {
     try {
       const posts = await Post.findAll({
-        order: [['createdAt', 'DESC']], 
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name'],
+          },
+          {
+            model: FotoPost,
+            as: 'fotos',
+            attributes: ['id', 'url', 'filename']
+          }
+        ],
+        order: [['createdAt', 'DESC']],
       });
+
+      if (posts.length === 0) {
+        return res.status(204).json({ message: 'Nenhum post encontrado.' });
+      }
+
       return res.status(200).json(posts);
     } catch (err) {
       console.error('Index error:', err);
@@ -19,9 +37,34 @@ class PostController{
   async show(req, res) {
     try {
       const { id } = req.params;
-      const post = await Post.findByPk(id);
+      const post = await Post.findByPk(id,{
+        include: [
+          {
+            model: User,
+            as: 'user',
+            attributes: ['id', 'name'],
+          },
+          {
+            model: FotoPost,
+            as: 'fotos',
+            attributes: ['id', 'url', 'filename']
+          },
+          {
+            model: Comment,
+            as: 'comments',
+            attributes: ['id', 'content', 'user_id'],
+            include: [
+              {
+                model: User,
+                as: 'user',
+                attributes: ['id', 'name'],
+              }
+            ]
+          }
+        ]
+      });
       if (!post) {
-        return res.status(404).json({ error: 'Post not found' });
+        return res.status(204).json({ message: 'Nenhum post encontrado.' });
       }
       return res.status(200).json(post);
     } catch (err) {
