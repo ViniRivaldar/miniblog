@@ -40,7 +40,7 @@ args = "git add ."
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "git commit -m 'adicionando cors'"
+args = "git commit -m 'mandar para produção'"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
