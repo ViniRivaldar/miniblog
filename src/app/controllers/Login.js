@@ -16,7 +16,6 @@ class LoginController {
       const {email, password} = req.body;
 
       const user = await User.findOne({where: {email}});
-      console.log(user)
 
       if(!user){
         return res.status(400).json({error: 'Invalid email or password'});
@@ -33,11 +32,11 @@ class LoginController {
       return res.status(200).json({
         message: 'Login successful',
         token,
-        userId: user.id,
-        NameUser:user.name,
+        Id: user.id,
+        Name:user.name,
         userName: user.username,
-        userEmail: user.email,
-        userAdmin: user.admin
+        Email: user.email,
+        Admin: user.admin
       })
     }catch(err){
       if (err instanceof Yup.ValidationError){
