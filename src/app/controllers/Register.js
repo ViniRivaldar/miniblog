@@ -104,11 +104,11 @@ class RegisterController {
     return res.status(200).json({
       message: 'Usuário atualizado com sucesso',
       user: {
-        id: user.id,
-        name: user.name,
-        username: user.username,
-        email: user.email,
-        admin: user.admin,
+        Id: user.id,
+        Name: user.name,
+        userName: user.username,
+        Email: user.email,
+        Admin: user.admin,
       },
     });
   } catch (err) {
