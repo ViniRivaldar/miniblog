@@ -33,7 +33,8 @@ class LoginController {
         message: 'Login successful',
         token,
         userId: user.id,
-        userName: user.name,
+        NameUser:user.name,
+        userName: user.username,
         userEmail: user.email,
         userAdmin: user.admin
       })
