@@ -22,7 +22,7 @@ class FotoPostController {
       }
 
       console.log("🧾 Dados recebidos para salvar no banco:");
-      console.log("originalmente:", originalmente);
+      console.log("originalmente:", originalname);
       console.log("filename:", filename);
       console.log("post_id:", post_id);
 
