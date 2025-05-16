@@ -21,11 +21,6 @@ class FotoPostController {
         return res.status(400).json({ error: 'O ID do post é obrigatório' });
       }
 
-      console.log("🧾 Dados recebidos para salvar no banco:");
-      console.log("originalmente:", originalname);
-      console.log("filename:", filename);
-      console.log("post_id:", post_id);
-
       const foto = await FotoPost.create({
         originalmente: originalname,
         filename: filename,
