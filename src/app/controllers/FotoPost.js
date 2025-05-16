@@ -22,7 +22,7 @@ class FotoPostController {
       }
 
       const foto = await FotoPost.create({
-        originalmente: originalname,
+        originalname: originalname,
         filename: filename,
         post_id: post_id, 
       });
