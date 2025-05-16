@@ -22,12 +22,12 @@ class FotoPostController {
       }
 
       console.log("🧾 Dados recebidos para salvar no banco:");
-      console.log("originalname:", originalname);
+      console.log("originalmente:", originalmente);
       console.log("filename:", filename);
       console.log("post_id:", post_id);
 
       const foto = await FotoPost.create({
-        originalname: originalname,
+        originalmente: originalname,
         filename: filename,
         post_id: post_id, 
       });
